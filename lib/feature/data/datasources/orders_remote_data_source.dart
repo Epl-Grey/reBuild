@@ -6,6 +6,7 @@ abstract class OrdersRemoteDataSource {
   Future<List<OrderModel>> getOrders();
   Future<void> createOrder(OrderModel order);
   Future<void> updateOrder(OrderModel order);
+  Future<void> deleteOrder(OrderModel order);
 }
 
 class OrderRemoteDataSourceImpl extends OrdersRemoteDataSource{
@@ -37,5 +38,10 @@ class OrderRemoteDataSourceImpl extends OrdersRemoteDataSource{
       .select();
     
     return data.map((order) => OrderModel.fromJson(order)).toList();
+  }
+
+  @override
+  Future<void> deleteOrder(OrderModel order) async {
+    await supabaseClient.from("Orders").delete().match({ "id": order.id! });
   }
 }

@@ -5,6 +5,7 @@ abstract class ResponsesRemoteDataSource {
   Future<List<ResponseModel>> getResponses();
   Future<void> createResponse(ResponseModel response);
   Future<void> updateResponse(ResponseModel response);
+  Future<void> deleteResponse(ResponseModel response);
 }
 
 class ResponseRemoteDataSourceImpl extends ResponsesRemoteDataSource{
@@ -35,5 +36,10 @@ class ResponseRemoteDataSourceImpl extends ResponsesRemoteDataSource{
       .select();
     
     return data.map((response) => ResponseModel.fromJson(response)).toList();
+  }
+
+  @override
+  Future<void> deleteResponse(ResponseModel response) async {
+    await supabaseClient.from("Responses").delete().match({ "id": response.id! });
   }
 }
