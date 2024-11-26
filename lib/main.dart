@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rebuild/feature/presentations/cubit/sign_in_cubit/sign_in_cubit.dart';
 import 'package:rebuild/feature/presentations/cubit/sign_up_cubit/sign_up_cubit.dart';
+import 'package:rebuild/feature/presentations/pages/customer/home_page.dart';
+import 'package:rebuild/feature/presentations/pages/sign_in_page.dart';
 import 'package:rebuild/feature/presentations/pages/sign_up_2_page.dart';
 
 import 'package:rebuild/feature/presentations/pages/sign_up_page.dart';
+import 'package:rebuild/feature/presentations/pages/splash_page.dart';
 import 'package:rebuild/local_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -30,6 +34,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignUpUserCubit>(
           create: (context) => sl<SignUpUserCubit>(),
         ),
+        BlocProvider<SignInUserCubit>(
+          create: (context) => sl<SignInUserCubit>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,12 +55,12 @@ class MyApp extends StatelessWidget {
           //   ),
           // ),
         ),
-        home: const SignUpPage(),
+        home: const SplashPage(),
         routes: {
-          '/signIn': (context) => const Placeholder(),
+          '/signIn': (context) => const SignInPage(),
           '/signUp': (context) => const SignUpPage(),
           // '/signUp/signUp2': (context) => const SignUp2Page(),
-          '/home': (context) => const Placeholder(),
+          '/home': (context) => const HomePage(),
         },
       ),
     );

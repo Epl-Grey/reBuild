@@ -126,7 +126,7 @@ class _SignUp2PageState extends State<SignUp2Page> {
             listener: (context, state) {
               if (state is SignUpUserLoaded) {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, "/signIn", arguments: state.user);
+                Navigator.pushNamed(context, "/home", arguments: state.user);
               } else if (state is SignUpUserError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(

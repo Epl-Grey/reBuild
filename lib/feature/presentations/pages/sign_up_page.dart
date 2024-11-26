@@ -147,6 +147,14 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  "/signIn",
+                );
+              },
+              child: Text('Вход')),
         ],
       ),
     );
