@@ -29,3 +29,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+fonts:
+  - family: pacifico
+    fonts: 
+      - asset: font/pacifico.ttf
+  - family: poppins
+    fonts: 
+      - asset: font/Poppins-Black.ttf
+      - asset: font/Poppins-Regular.ttf
+      - asset: font/Poppins-ExtraBold.ttf

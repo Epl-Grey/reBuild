@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rebuild/feature/presentations/pages/sign_up_page.dart';
 import 'package:rebuild/local_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const Placeholder(),
         routes: {
-          '/signIn': (context) => const Placeholder(),
+          '/signIn': (context) => SignInPage(),
           '/signUp': (context) => const Placeholder(),
           '/home': (context) => const Placeholder(),
           
