@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rebuild/feature/presentations/cubit/sign_up_cubit/sign_up_cubit.dart';
 import 'package:rebuild/feature/presentations/pages/sign_up_2_page.dart';
 
 import 'package:rebuild/feature/presentations/pages/sign_up_page.dart';
@@ -23,30 +25,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // inputDecorationTheme: InputDecorationTheme(
-        //   enabledBorder: OutlineInputBorder(
-        //     borderSide: const BorderSide(
-        //         width: 2, color: AppColors.outlineInputBorder),
-        //     borderRadius: BorderRadius.circular(12),
-        //   ),
-        //   focusedBorder: OutlineInputBorder(
-        //     borderSide: const BorderSide(
-        //         width: 2, color: AppColors.outlineInputBorder),
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        // ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SignUpUserCubit>(
+          create: (context) => sl<SignUpUserCubit>(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          // inputDecorationTheme: InputDecorationTheme(
+          //   enabledBorder: OutlineInputBorder(
+          //     borderSide: const BorderSide(
+          //         width: 2, color: AppColors.outlineInputBorder),
+          //     borderRadius: BorderRadius.circular(12),
+          //   ),
+          //   focusedBorder: OutlineInputBorder(
+          //     borderSide: const BorderSide(
+          //         width: 2, color: AppColors.outlineInputBorder),
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          // ),
+        ),
+        home: const SignUpPage(),
+        routes: {
+          '/signIn': (context) => const Placeholder(),
+          '/signUp': (context) => const SignUpPage(),
+          // '/signUp/signUp2': (context) => const SignUp2Page(),
+          '/home': (context) => const Placeholder(),
+        },
       ),
-      home: const SignUpPage(),
-      routes: {
-        '/signIn': (context) => const Placeholder(),
-        '/signUp': (context) => const SignUpPage(),
-        '/signUp/signUp2': (context) => const SignUp2Page(),
-        '/home': (context) => const Placeholder(),
-      },
     );
   }
 }

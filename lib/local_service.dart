@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:rebuild/feature/data/datasources/orders_remote_data_source.dart';
+import 'package:rebuild/feature/data/datasources/responses_remote_data_source.dart';
+import 'package:rebuild/feature/data/datasources/user_remote_data_source.dart';
 import 'package:rebuild/feature/data/repositories/orders_repository_impl.dart';
 import 'package:rebuild/feature/data/repositories/responses_repository_impl.dart';
 import 'package:rebuild/feature/data/repositories/user_repository_impl.dart';
@@ -30,7 +33,7 @@ Future<void> init() async {
   // UseCases
   sl.registerLazySingleton<SignInUser>(() => SignInUser(userRepository: sl()));
   sl.registerLazySingleton<SignUpUser>(() => SignUpUser(userRepository: sl()));
-  
+
   sl.registerLazySingleton<CreateOrder>(() => CreateOrder(sl()));
   sl.registerLazySingleton<DeleteOrder>(() => DeleteOrder(sl()));
   sl.registerLazySingleton<UpdateOrder>(() => UpdateOrder(sl()));
@@ -44,11 +47,18 @@ Future<void> init() async {
   // Repository
   sl.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(userRemoteDataSources: sl()));
-  sl.registerLazySingleton<OrdersRepository>(
-      () => OrdersRepositoryImpl(sl()));
+  sl.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImpl(sl()));
   sl.registerLazySingleton<ResponsesRepository>(
       () => ResponsesRepositoryImpl(sl()));
 
+  sl.registerLazySingleton<OrdersRemoteDataSource>(
+      () => OrderRemoteDataSourceImpl(Supabase.instance.client));
+
+  sl.registerLazySingleton<ResponsesRemoteDataSource>(
+      () => ResponseRemoteDataSourceImpl(Supabase.instance.client));
+
+  sl.registerLazySingleton<UserRemoteDataSources>(() =>
+      UserRemoteDataSourcesImpl(supabaseClient: Supabase.instance.client));
   // External
   sl.registerLazySingleton<Supabase>(() => Supabase.instance);
   sl.registerLazySingleton(() => InternetConnectionChecker());

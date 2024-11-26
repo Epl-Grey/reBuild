@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rebuild/feature/presentations/cubit/sign_up_cubit/sign_up_cubit.dart';
+import 'package:rebuild/feature/presentations/cubit/sign_up_cubit/sign_up_state.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class SignUp2Page extends StatefulWidget {
-  const SignUp2Page({super.key});
+  final String email;
+  final String name;
+  final String sername;
+  final bool isCustomer;
+  const SignUp2Page({
+    super.key,
+    required this.name,
+    required this.sername,
+    required this.isCustomer,
+    required this.email,
+  });
 
   @override
-  State<SignUp2Page> createState() => _SignUp2PageState();
+  State<SignUp2Page> createState() =>
+      _SignUp2PageState(this.isCustomer, this.email, this.name, this.sername);
 }
 
 class _SignUp2PageState extends State<SignUp2Page> {
   final passwordController = TextEditingController();
   final reapetpasswordController = TextEditingController();
+  bool isCustomer;
+  String email;
+  String name;
+  String sername;
+  _SignUp2PageState(this.isCustomer, this.email, this.name, this.sername);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,13 +87,56 @@ class _SignUp2PageState extends State<SignUp2Page> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/signIn");
+              if (passwordController.text.length < 7) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Пароль должен быть больше 8 символов'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+              if (reapetpasswordController.text.length < 7) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Пароль должен быть больше 8 символов'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+              if (passwordController.text == reapetpasswordController.text &&
+                  passwordController.text.length > 7 &&
+                  reapetpasswordController.text.length > 7) {
+                context.read<SignUpUserCubit>().auth(
+                    email, passwordController.text, name, sername, isCustomer);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Пароли не совпадают!'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
             },
             child: const Text(
               "Продолжить",
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
+          ),
+          BlocListener<SignUpUserCubit, SignUpUserState>(
+            listener: (context, state) {
+              if (state is SignUpUserLoaded) {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/signIn", arguments: state.user);
+              } else if (state is SignUpUserError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Ошибка аутентификации!'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+            },
+            child: const SizedBox(),
           ),
         ],
       ),

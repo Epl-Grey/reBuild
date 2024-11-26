@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rebuild/feature/presentations/pages/sign_up_2_page.dart';
 import 'package:rebuild/feature/presentations/widgets/segment_widget.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -120,7 +121,18 @@ class _SignUpPageState extends State<SignUpPage> {
               if (_validateInput(emailController) &
                   _validateInput(nameController) &
                   _validateInput(sernameController)) {
-                Navigator.pushNamed(context, "/signIn");
+                bool isCustomer = groupValue == 0 ? true : false;
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SignUp2Page(
+                          name: nameController.text,
+                          sername: sernameController.text,
+                          email: emailController.text,
+                          isCustomer: isCustomer,
+                        )));
+                // Navigator.pushNamed(
+                //   context,
+                //   "/signUp/signUp2",
+                // );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
