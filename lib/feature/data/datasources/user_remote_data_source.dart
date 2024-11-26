@@ -4,6 +4,7 @@ abstract class UserRemoteDataSources{
     Future<AuthResponse> signInUser(String email, String password);
     Future<AuthResponse> signUpUser(String email, String password);
     Future<void> signOutUser();
+    String getMyId();
 }
 
 class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
@@ -19,7 +20,7 @@ class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
     );
   }
 
-    @override
+  @override
   Future<AuthResponse> signUpUser(String email, String password) async {
     return await supabaseClient.auth.signUp(
       email: email,
@@ -32,4 +33,6 @@ class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
     return await supabaseClient.auth.signOut();
   }
   
+  @override
+  String getMyId() => supabaseClient.auth.currentUser!.id;
 }
