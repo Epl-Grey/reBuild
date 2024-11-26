@@ -19,9 +19,9 @@ class OrdersRepositoryImpl extends OrdersRepository{
   }
 
   @override
-  Future<Either<Failure, List<OrderEntity>>> getOrders() async {
+  Future<Either<Failure, List<OrderEntity>>> getOrders({bool? isDone, String? userId}) async {
     return await _getOrders(() async =>
-      remoteDataSource.getOrders()
+      remoteDataSource.getOrders(isDone: isDone, userId: userId)
     );
   }
 
