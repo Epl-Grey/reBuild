@@ -1,19 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rebuild/local_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
-  runApp(const MainApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+      url: 'https://nstaduaseyjakvpmgdqn.supabase.co',
+      anonKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zdGFkdWFzZXlqYWt2cG1nZHFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1OTg0NjcsImV4cCI6MjA0ODE3NDQ2N30.966o-31QNTjQ0JcM3CsnK6vCBp4s9yIe3D4n_R1-_6o');
+
+  init();
+  const MyApp();
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+final supabase = Supabase.instance.client;
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return MultiBlocProvider(
+      providers: const [
+        // BlocProvider<SignInUserCubit>(
+        //   create: (context) => sl<SignInUserCubit>(),
+        // ),
+        
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          // inputDecorationTheme: InputDecorationTheme(
+          //   enabledBorder: OutlineInputBorder(
+          //     borderSide: const BorderSide(
+          //         width: 2, color: AppColors.outlineInputBorder),
+          //     borderRadius: BorderRadius.circular(12),
+          //   ),
+          //   focusedBorder: OutlineInputBorder(
+          //     borderSide: const BorderSide(
+          //         width: 2, color: AppColors.outlineInputBorder),
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          // ),
         ),
+        home: const Placeholder(),
+        routes: {
+          '/signIn': (context) => const Placeholder(),
+          '/signUp': (context) => const Placeholder(),
+          '/home': (context) => const Placeholder(),
+          
+        },
       ),
     );
   }
