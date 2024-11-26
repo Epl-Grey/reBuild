@@ -12,9 +12,22 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final reapetPasswordController = TextEditingController();
+  final nameController = TextEditingController();
+  final sernameController = TextEditingController();
   int? groupValue = 0;
+
+  bool _validateInput(TextEditingController controller) {
+    bool isntempty = false;
+    setState(() {
+      if (controller.text.isEmpty) {
+        isntempty = false;
+      } else {
+        isntempty = true; // Обнуляем ошибку, если ввод валиден
+      }
+    });
+    return isntempty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     onValueChanged: (groupValue) {
                       setState(() => this.groupValue = groupValue);
+                      print(groupValue);
                     })
               ],
             ),
@@ -80,9 +94,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           TextField(
-            controller: passwordController,
+            controller: nameController,
             decoration: const InputDecoration(
-              hintText: 'Пароль',
+              hintText: 'Имя',
               hintStyle: TextStyle(
                 color: Color.fromARGB(255, 98, 98, 98),
                 fontFamily: 'Poppins',
@@ -91,14 +105,34 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           TextField(
-            controller: reapetPasswordController,
+            controller: sernameController,
             decoration: const InputDecoration(
-              hintText: 'Повтор пароля',
+              hintText: 'Фамилия',
               hintStyle: TextStyle(
                 color: Color.fromARGB(255, 98, 98, 98),
                 fontFamily: 'Poppins',
                 fontSize: 12,
               ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_validateInput(emailController) &
+                  _validateInput(nameController) &
+                  _validateInput(sernameController)) {
+                Navigator.pushNamed(context, "/signIn");
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Все поля должны быть заполнены'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              }
+            },
+            child: const Text(
+              "Продолжить",
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
         ],

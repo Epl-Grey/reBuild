@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rebuild/feature/presentations/pages/sign_up_2_page.dart';
 
 import 'package:rebuild/feature/presentations/pages/sign_up_page.dart';
 import 'package:rebuild/local_service.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/signIn': (context) => const Placeholder(),
         '/signUp': (context) => const SignUpPage(),
+        '/signUp/signUp2': (context) => const SignUp2Page(),
         '/home': (context) => const Placeholder(),
       },
     );
