@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/order_model.dart';
 
 abstract class OrdersRemoteDataSource {
-  Future<List<OrderModel>> getOrders();
+  Future<List<OrderModel>> getOrders({bool? isDone, String? userId});
   Future<void> createOrder(OrderModel order);
   Future<void> updateOrder(OrderModel order);
   Future<void> deleteOrder(OrderModel order);
@@ -31,12 +31,20 @@ class OrderRemoteDataSourceImpl extends OrdersRemoteDataSource{
   }
 
   @override
-  Future<List<OrderModel>> getOrders() async {
+  Future<List<OrderModel>> getOrders({bool? isDone, String? userId}) async {
     List<Map<String, dynamic>> data;
     
-    data = await supabaseClient
-      .from('Orders')
-      .select();
+    var query = supabaseClient.from('Orders').select();
+
+    if (isDone != null) {
+      query = query.eq('id_done', isDone);
+    }
+
+    if (userId != null) {
+      query = query.eq('customer_id', userId);
+    }
+
+    data = await query;
     
     return data.map((order) => OrderModel.fromJson(order)).toList();
   }
