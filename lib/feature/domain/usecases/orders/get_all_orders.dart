@@ -5,10 +5,10 @@ import 'package:rebuild/core/usecases/usecase.dart';
 import 'package:rebuild/feature/domain/entities/order_entity.dart';
 import 'package:rebuild/feature/domain/repositories/orders_repository.dart';
 
-class GetAllOrders extends UseCase<List<OrderEntity>, GetOrderParams>{
+class GetOrders extends UseCase<List<OrderEntity>, GetOrderParams>{
   final OrdersRepository orderRepository;
 
-  GetAllOrders(this.orderRepository);
+  GetOrders(this.orderRepository);
 
   @override
   Future<Either<Failure, List<OrderEntity>>> call(GetOrderParams params) async {
