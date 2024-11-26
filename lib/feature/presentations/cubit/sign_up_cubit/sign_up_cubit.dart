@@ -8,10 +8,10 @@ class SignUpUserCubit extends Cubit<SignUpUserState> {
 
   SignUpUserCubit({required this.signUpUser}) : super(SignUpUserInitial());
 
-  auth(String email, String password) async {
+  auth(String email, String password, String name, String surname, bool isCustomer) async {
     emit(SignUpUserStart());
 
-    final failureOrUser = await signUpUser(UserSignUpParams(email: email, password: password));
+    final failureOrUser = await signUpUser(UserSignUpParams(email: email, password: password, name: name, surname: surname, isCustomer: isCustomer));
     emit(failureOrUser.fold(
         (failure) => SignUpUserError(message: mapFailureFromMessage(failure)),
         (auth) => SignUpUserLoaded(user: auth)));

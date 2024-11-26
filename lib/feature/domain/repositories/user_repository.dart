@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, AuthResponse>> signIn(String email, String password);
-  Future<Either<Failure, AuthResponse>> signUp(String email, String password);
+  Future<Either<Failure, AuthResponse>> signUp(String email, String password, String name, String surname, bool isCustomer);
   Future<Either<Failure, void>> signOut();
   Either<Failure, String> getMyId();
 }

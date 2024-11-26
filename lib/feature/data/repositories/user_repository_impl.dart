@@ -24,9 +24,9 @@ class UserRepositoryImpl extends UserRepository {
   }
   
   @override
-  Future<Either<Failure, AuthResponse>> signUp(String email, String password) async{
+  Future<Either<Failure, AuthResponse>> signUp(String email, String password, String name, String surname, bool isCustomer) async{
     try {
-          final respone = await userRemoteDataSources.signUpUser(email, password);
+          final respone = await userRemoteDataSources.signUpUser(email, password, name, surname, isCustomer);
     return Right(respone);
     } on ServerFailure catch(error) {
       return Left(ServerFailure(message: error.message));
