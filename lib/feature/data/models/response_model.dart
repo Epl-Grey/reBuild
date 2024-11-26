@@ -2,7 +2,7 @@ import 'package:rebuild/feature/domain/entities/response_entity.dart';
 
 class ResponseModel extends ResponseEntity{
   const ResponseModel({
-    required super.id,
+    super.id,
     required super.orderId,
     required super.contractorId,
     required super.period

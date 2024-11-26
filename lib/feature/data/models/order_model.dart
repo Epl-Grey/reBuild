@@ -2,8 +2,8 @@ import 'package:rebuild/feature/domain/entities/order_entity.dart';
 
 class OrderModel extends OrderEntity{
   const OrderModel({
-    required super.id,
-    required super.customerId,
+    super.id,
+    super.customerId,
     required super.name,
     required super.devices,
     required super.descriptions,
