@@ -26,6 +26,7 @@ class OrderRemoteDataSourceImpl extends OrdersRemoteDataSource{
       'devices': order.devices,
       'descriptions': order.descriptions,
       'period': order.period,
+      'is_done': order.isDone
     }).eq("id", order.id!);
   }
 

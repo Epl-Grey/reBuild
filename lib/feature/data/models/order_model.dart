@@ -7,7 +7,8 @@ class OrderModel extends OrderEntity{
     required super.name,
     required super.devices,
     required super.descriptions,
-    required super.period
+    required super.period,
+    required super.isDone,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> map) =>
@@ -18,6 +19,7 @@ class OrderModel extends OrderEntity{
       devices: map['devices'] as String,
       descriptions: map['descriptions'],
       period: map['period'] as int,
+      isDone: map['is_done'] as bool
     );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +29,6 @@ class OrderModel extends OrderEntity{
       'devices': devices,
       'descriptions': descriptions,
       'period': period,
+      'is_done': isDone
   };
 }
