@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
         // BlocProvider<SignInUserCubit>(
         //   create: (context) => sl<SignInUserCubit>(),
         // ),
-        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,10 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         home: const Placeholder(),
         routes: {
-          '/signIn': (context) => SignInPage(),
+          '/signIn': (context) => const SignInPage(),
           '/signUp': (context) => const Placeholder(),
           '/home': (context) => const Placeholder(),
-          
         },
       ),
     );
