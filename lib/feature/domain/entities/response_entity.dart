@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Response extends Equatable {
+class ResponseEntity extends Equatable {
   final int id;
   final int orderId;
   final String contractorId;
   final int period;
 
-  const Response({
+  const ResponseEntity({
     required this.id,
     required this.orderId,
     required this.contractorId,
