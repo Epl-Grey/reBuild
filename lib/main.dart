@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:rebuild/feature/presentations/pages/sign_up_page.dart';
 import 'package:rebuild/local_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,7 +12,7 @@ Future<void> main() async {
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zdGFkdWFzZXlqYWt2cG1nZHFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1OTg0NjcsImV4cCI6MjA0ODE3NDQ2N30.966o-31QNTjQ0JcM3CsnK6vCBp4s9yIe3D4n_R1-_6o');
 
   init();
-  const MyApp();
+  runApp(const MyApp());
 }
 
 final supabase = Supabase.instance.client;
@@ -22,36 +22,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: const [
-        // BlocProvider<SignInUserCubit>(
-        //   create: (context) => sl<SignInUserCubit>(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        // inputDecorationTheme: InputDecorationTheme(
+        //   enabledBorder: OutlineInputBorder(
+        //     borderSide: const BorderSide(
+        //         width: 2, color: AppColors.outlineInputBorder),
+        //     borderRadius: BorderRadius.circular(12),
+        //   ),
+        //   focusedBorder: OutlineInputBorder(
+        //     borderSide: const BorderSide(
+        //         width: 2, color: AppColors.outlineInputBorder),
+        //     borderRadius: BorderRadius.circular(10),
+        //   ),
         // ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          // inputDecorationTheme: InputDecorationTheme(
-          //   enabledBorder: OutlineInputBorder(
-          //     borderSide: const BorderSide(
-          //         width: 2, color: AppColors.outlineInputBorder),
-          //     borderRadius: BorderRadius.circular(12),
-          //   ),
-          //   focusedBorder: OutlineInputBorder(
-          //     borderSide: const BorderSide(
-          //         width: 2, color: AppColors.outlineInputBorder),
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          // ),
-        ),
-        home: const Placeholder(),
-        routes: {
-          '/signIn': (context) => const SignInPage(),
-          '/signUp': (context) => const Placeholder(),
-          '/home': (context) => const Placeholder(),
-        },
       ),
+      home: const SignUpPage(),
+      routes: {
+        '/signIn': (context) => const Placeholder(),
+        '/signUp': (context) => const SignUpPage(),
+        '/home': (context) => const Placeholder(),
+      },
     );
   }
 }

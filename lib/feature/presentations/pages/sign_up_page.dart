@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rebuild/feature/presentations/widgets/segment_widget.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final reapetPasswordController = TextEditingController();
@@ -18,27 +19,20 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          ShaderMask(
-            shaderCallback: (bounds) {
-              return LinearGradient(
-                colors: [
-                  const Color(0xFF4275FA)
-                      .withOpacity(1), // Первый цвет градиента
-                  const Color(0xFF1102C6)
-                      .withOpacity(87), // Второй цвет градиента
-                ],
-                tileMode: TileMode.clamp,
-              ).createShader(bounds);
-            },
-            child: const Text(
-              'Регистрация',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700,
-              ),
+          GradientText(
+            'Регистрация',
+            style: const TextStyle(
+              fontSize: 45,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w800,
             ),
+            gradientType: GradientType.linear,
+            colors: const [
+              Color.fromRGBO(66, 117, 250, 100),
+              Color.fromRGBO(17, 2, 198, 97)
+            ], // Ваши цвета градиента,
           ),
           const Text(
             'Выберите вашу роль, введите почту и ваше ФИ',
@@ -47,6 +41,7 @@ class _SignInPageState extends State<SignInPage> {
                 color: Color.fromARGB(255, 46, 45, 86),
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
           ),
           Center(
             child: Column(
@@ -54,23 +49,30 @@ class _SignInPageState extends State<SignInPage> {
               children: [
                 CupertinoSlidingSegmentedControl<int>(
                     groupValue: groupValue,
-                    thumbColor: const Color(0xFF78C4A4),
+                    thumbColor: const Color(0xFF4275FA).withOpacity(1),
                     backgroundColor: Colors.white,
                     children: {
-                      0: buildSegment('Заказчик'),
-                      1: buildSegment('Подрядчик')
+                      0: buildSegment('Заказчик',
+                          groupValue == 1 ? Colors.black : Colors.white),
+                      1: buildSegment('Подрядчик',
+                          groupValue == 1 ? Colors.white : Colors.black)
                     },
                     onValueChanged: (groupValue) {
-                      // setState(() => this.groupValue = groupValue);
+                      setState(() => this.groupValue = groupValue);
                     })
               ],
             ),
           ),
           TextField(
             controller: emailController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Email',
-              hintStyle: TextStyle(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide:
+                    BorderSide(color: const Color(0xFF4275FA).withOpacity(1)),
+              ),
+              hintStyle: const TextStyle(
                 color: Color.fromARGB(255, 98, 98, 98),
                 fontFamily: 'Poppins',
                 fontSize: 12,
