@@ -8,6 +8,7 @@ class OrderEntity extends Equatable{
   final String descriptions;
   final int period;
   final bool isDone;
+  final bool isWorking;
 
   const OrderEntity({
     this.id,
@@ -16,7 +17,8 @@ class OrderEntity extends Equatable{
     required this.devices,
     required this.descriptions,
     required this.period,
-    required this.isDone
+    required this.isDone,
+    required this.isWorking
   });
   
   @override
@@ -28,5 +30,6 @@ class OrderEntity extends Equatable{
     descriptions,
     period,
     isDone,
+    isWorking,
   ];
 }
