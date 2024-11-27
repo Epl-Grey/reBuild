@@ -39,9 +39,12 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          splashColor: Colors.white,
+          
           // inputDecorationTheme: InputDecorationTheme(
           //   enabledBorder: OutlineInputBorder(
           //     borderSide: const BorderSide(
